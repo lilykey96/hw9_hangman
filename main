@@ -1,0 +1,32 @@
+package files;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+/**
+ * Controller class for reading and writing files.
+ * @author Xueqi Wang, Weijie Qi
+ *
+ */
+public class Main {
+
+	public static void main(String[] args) {
+		List <String> weq = new ArrayList<String>();
+		//file to read
+		String fileName = "test.txt";
+		
+		//get total sum of numeric values in given file
+		try {
+			weq = MyFileReader.readFileGetLegalChar(fileName);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			//runs no matter what
+		}
+		System.out.println(weq.toString());
+		//get total sums of lines in given file
+
+	}
+
+}
