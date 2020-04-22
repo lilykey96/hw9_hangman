@@ -1,6 +1,8 @@
 package HangmanGame;
 
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class describes traditional hangman game.
@@ -12,12 +14,35 @@ public class TraditionalHangman extends Hangman {
 	/**
 	 * "word": a randomly selected word for user to guess.
 	 */
-	private String word;
+	public String word;
 	
 	/**
-	 * "incorrectGuesses": a String array that stores all the incorrect guesses.
+	 * "incorrectGuesses": a String list that stores all the incorrect guesses.
 	 */
-	public String[] incorrectGuesses;
+	public List<String> incorrectGuesses = new ArrayList<>();
+	
+	/**
+	 * This constructor initializes a traditional hangman game.
+	 * @param path of the txt file
+	 */
+	TraditionalHangman(String path){
+		// get the clean words list
+		super(path);
+		
+		// get the random word
+		this.word = this.getRandomWord();
+		
+		// set the known word to "_____"
+		this.knownWord = new String[this.word.length()];
+		for(int i=0; i<this.word.length(); i++)
+			this.knownWord[i] = "_ ";
+		
+		// print the original known word
+		this.printKnownWord();
+		
+		// initialize the correct array
+		this.correct = new boolean[this.word.length()];
+	}
 	
 	// Methods
 	/**
@@ -25,34 +50,49 @@ public class TraditionalHangman extends Hangman {
 	 * @return RandomWord (String)
 	 */
 	String getRandomWord() {
-		String RandomWord;
+		
+		// get a random index
+		Random r = new Random();
+		int index = r.nextInt(this.cleanWords.size());
+		
+		// find the corresponding word
+		String RandomWord = this.cleanWords.get(index);
+		
 		return RandomWord;
 	}
 	
 	/**
-	 * This method gets the length of the word to guess.
-	 * @return length (int)
+	 * This methods returns the type of current game.
+	 * @return "traditional"
 	 */
-	public int getLength() {
-		
-		// get the length of the randomly selected word
-		int length = this.word.length();
-		
-		// initialize the correct array
-		this.correct = new boolean[length];
-		
-		return length;
+	String getGameType() {
+		return "traditional";
 	}
 	
 	/**
 	 * This method returns true when a character is a correct guess.
-	 * This method also updates the correct array.
+	 * This method also updates the correct array, known word and mistakes.
 	 * @param ch
-	 * @return match (true/false)
+	 * @return true/false
 	 */
 	public boolean isCorrect(String ch) {
-		boolean match;
-		return match;
+		
+		for(int i=0; i<this.word.length(); i++) {
+			if(this.correct[i] == false && ch.charAt(0) == this.word.charAt(i))
+			{
+				// update correct array
+				this.correct[i] = true;
+				
+				// update known word
+				this.knownWord[i] = ch;
+				
+				return true;
+				}
+		}
+		
+		// update the mistakes
+		this.mistakes += 1;
+		return false;
 	}
 	
 	/**
@@ -61,6 +101,16 @@ public class TraditionalHangman extends Hangman {
 	 * @param ch
 	 */
 	void incorrectGuesses(String ch) {
+		
+		// store the incorrect guess
+		this.incorrectGuesses.add(ch);
+		
+		// show all the incorrect guesses
+		System.out.print("Incorrect Guesses: ");
+		for(int i=0; i<this.incorrectGuesses.size(); i++)
+			System.out.print(this.incorrectGuesses.get(i) + " ");
+		
+		System.out.print("\n");
 		
 	}
 }
