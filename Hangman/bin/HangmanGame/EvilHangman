@@ -88,9 +88,7 @@ public class EvilHangman extends Hangman {
 					test[j] = ch;
 					}
 			}
-			//for(int ii=0; ii<test.length; ii++)
-				//System.out.print(test[ii]);
-			//System.out.print("\n");
+			
 			if (!shownFamily.containsKey(test)) {
 				//add key s with count (value) of 1
 				shownFamily.put(test, 1);
