@@ -78,7 +78,6 @@ public class EvilHangman extends Hangman {
 	}
 	
 	void getWordsFamily(String ch) {
-		//String[] test;
 		shownFamily.clear();
 		for(int i=0; i<this.wordsFamily.size(); i++) {
 			String[] test = this.knownWord.clone();
